@@ -12,7 +12,7 @@ public interface IUserMapper {
 
     @InheritInverseConfiguration
     @Mapping(target = "hearingAid", ignore = true)
-    @Mapping(target = "userId", ignore = true)
+    //@Mapping(target = "userId", ignore = true)
     User toUser(UserDTO userDTO);
 
     @Mapping(source = "firstName", target = "firstName")

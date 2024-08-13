@@ -2,11 +2,14 @@ package com.alcanl.app.controller;
 
 import com.alcanl.app.service.LibraryDataService;
 import com.alcanl.app.service.dto.*;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import static com.alcanl.app.global.Global.*;
 
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -194,5 +197,21 @@ public class LibraryServiceController {
     {
         logInfo("getEqualizerValuesByHearingAidModelNumber");
         return ResponseEntity.of(m_libraryDataService.findEqualizerValuesById(equalizerValuesId));
+    }
+    @DeleteMapping("/user/delete/{userId}")
+    public ResponseEntity<String> deleteUser(@PathVariable("userId") long userId) {
+        logInfo("deleteUserByUserId");
+        try {
+            boolean isDeleted = m_libraryDataService.deleteUserByUserId(userId);
+            if (isDeleted) {
+                return ResponseEntity.ok("User deleted successfully");
+            } else {
+                // Assuming the service method returns false if user is not found
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found or could not be deleted");
+            }
+        } catch (ServiceException ex) {
+            log.error("Error deleting user by userId: {}", ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error");
+        }
     }
 }

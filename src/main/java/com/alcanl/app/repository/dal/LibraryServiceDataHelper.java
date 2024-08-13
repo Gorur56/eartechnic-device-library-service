@@ -75,8 +75,9 @@ public class LibraryServiceDataHelper {
     public Optional<User> saveUser(User user)
     {
         try {
+            /* user 'ı update ederken mail değiştirmek zorunlu olmasın diye kaldırdık.
             if (m_userRepository.existsByeMail(user.eMail))
-                return Optional.empty();
+                return Optional.empty();*/
 
             return Optional.of(m_userRepository.save(user));
         } catch (Throwable ex) {
@@ -254,6 +255,18 @@ public class LibraryServiceDataHelper {
         } catch (Throwable ex) {
             log.error("Error finding equalizer values by name: {}", ex.getMessage());
             throw new RepositoryException("LibraryServiceDataHelper::findEqualizerValuesByEqualizerValuesName", ex);
+        }
+    }
+    public boolean deleteUserByUserId(long userId) {
+        try {
+            if (m_userRepository.existsById(userId)) {
+                m_userRepository.deleteById(userId);
+                return true; // Successfully deleted
+            } else {
+                throw new RuntimeException("User Not Found: " + userId);
+            }
+        } catch (Throwable ex) {
+            throw new RepositoryException("LibraryServiceDataHelper::deleteUserByUserId", ex);
         }
     }
 }

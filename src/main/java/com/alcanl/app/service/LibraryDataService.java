@@ -321,4 +321,12 @@ public class LibraryDataService {
             throw new ServiceException("LibraryDataService::findEqualizerValuesId", ex);
         }
     }
+    public boolean deleteUserByUserId(long userId) {
+        try {
+            boolean isDeleted = m_libraryServiceDataHelper.deleteUserByUserId(userId);
+            return isDeleted;
+        } catch (RepositoryException ex) {
+            throw new ServiceException("LibraryDataService::deleteUserByUserId", ex);
+        }
+    }
 }

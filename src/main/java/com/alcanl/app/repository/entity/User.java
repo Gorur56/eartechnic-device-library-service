@@ -18,7 +18,7 @@ public class User {
     @Column(name = "first_name", nullable = false)
     public String firstName;
 
-    @Column(name = "e_mail", nullable = false, unique = true)
+    @Column(name = "e_mail", nullable = false)
     public String eMail;
 
     @Column(name = "password", nullable = false)
@@ -36,7 +36,7 @@ public class User {
     @Column(name = "phone_number", nullable = false)
     public String phoneNumber;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "hearing_aid_model_name", nullable = false)
     public HearingAid hearingAid;
 
