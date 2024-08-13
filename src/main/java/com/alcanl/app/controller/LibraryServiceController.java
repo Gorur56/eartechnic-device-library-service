@@ -198,15 +198,14 @@ public class LibraryServiceController {
         logInfo("getEqualizerValuesByHearingAidModelNumber");
         return ResponseEntity.of(m_libraryDataService.findEqualizerValuesById(equalizerValuesId));
     }
-    @DeleteMapping("/user/delete/{userId}")
-    public ResponseEntity<String> deleteUser(@PathVariable("userId") long userId) {
+    @DeleteMapping("/user/delete")
+    public ResponseEntity<String> deleteUser(@RequestParam("userId") long userId) {
         logInfo("deleteUserByUserId");
         try {
             boolean isDeleted = m_libraryDataService.deleteUserByUserId(userId);
             if (isDeleted) {
                 return ResponseEntity.ok("User deleted successfully");
             } else {
-                // Assuming the service method returns false if user is not found
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found or could not be deleted");
             }
         } catch (ServiceException ex) {

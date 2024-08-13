@@ -323,8 +323,7 @@ public class LibraryDataService {
     }
     public boolean deleteUserByUserId(long userId) {
         try {
-            boolean isDeleted = m_libraryServiceDataHelper.deleteUserByUserId(userId);
-            return isDeleted;
+            return m_libraryServiceDataHelper.deleteUserByUserId(userId);
         } catch (RepositoryException ex) {
             throw new ServiceException("LibraryDataService::deleteUserByUserId", ex);
         }

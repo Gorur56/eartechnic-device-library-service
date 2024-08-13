@@ -261,9 +261,9 @@ public class LibraryServiceDataHelper {
         try {
             if (m_userRepository.existsById(userId)) {
                 m_userRepository.deleteById(userId);
-                return true; // Successfully deleted
+                return true;
             } else {
-                throw new RuntimeException("User Not Found: " + userId);
+                throw new RepositoryException("User Not Found: " + userId);
             }
         } catch (Throwable ex) {
             throw new RepositoryException("LibraryServiceDataHelper::deleteUserByUserId", ex);
